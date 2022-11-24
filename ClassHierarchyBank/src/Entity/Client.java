@@ -1,5 +1,7 @@
 package Entity;
 
+import java.util.Objects;
+
 public class Client extends Person{
     private int bankCardNumber;
     private double credit;
@@ -21,5 +23,29 @@ public class Client extends Person{
 
     public void setContract(String contract) {
         this.contract = contract;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return bankCardNumber == client.bankCardNumber && Double.compare(client.credit, credit) == 0 && contract.equals(client.contract);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bankCardNumber, credit, contract);
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "bankCardNumber=" + bankCardNumber +
+                ", credit=" + credit +
+                ", contract='" + contract + '\'' +
+                ", name='" + name + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                '}';
     }
 }

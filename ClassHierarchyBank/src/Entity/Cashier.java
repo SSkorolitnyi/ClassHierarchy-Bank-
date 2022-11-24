@@ -1,5 +1,7 @@
 package Entity;
 
+import java.util.Objects;
+
 public class Cashier extends Employee{
     private int cassMachineNumber;
     private String workingShift;
@@ -23,5 +25,31 @@ public class Cashier extends Employee{
 
     public String getWorkingShift() {
         return getName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cashier cashier = (Cashier) o;
+        return cassMachineNumber == cashier.cassMachineNumber && workingShift.equals(cashier.workingShift);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cassMachineNumber, workingShift);
+    }
+
+    @Override
+    public String toString() {
+        return "Cashier{" +
+                "cassMachineNumber=" + cassMachineNumber +
+                ", workingShift='" + workingShift + '\'' +
+                ", salary=" + salary +
+                ", workingHours=" + workingHours +
+                ", experience=" + experience +
+                ", name='" + name + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                '}';
     }
 }
