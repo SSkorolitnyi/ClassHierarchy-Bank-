@@ -2,27 +2,27 @@ package Entity;
 
 import java.util.Objects;
 
-public class Client extends Person{
+public class Client extends Person {
     private int bankCardNumber;
-    private double credit;
-    String contract;
-    Client(String name, int phoneNumber, int bankCardNumber, double credit, String contract) {
+    float balance;
+    public Client(String name, int phoneNumber, int bankCardNumber, float balance) {
         super(name, phoneNumber);
-        this.contract = contract;
-        this.credit = credit;
         this.bankCardNumber = bankCardNumber;
+        this.balance = balance;
     }
 
     public void setBankCardNumber(int bankCardNumber) {
         this.bankCardNumber = bankCardNumber;
     }
-
-    public void setCredit(double credit) {
-        this.credit = credit;
+    public void setBalance(float balance) {
+        this.balance = balance;
     }
 
-    public void setContract(String contract) {
-        this.contract = contract;
+    public int getBankCardNumber() {
+        return bankCardNumber;
+    }
+    public float getBalance() {
+        return balance;
     }
 
     @Override
@@ -30,22 +30,21 @@ public class Client extends Person{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return bankCardNumber == client.bankCardNumber && Double.compare(client.credit, credit) == 0 && contract.equals(client.contract);
+        return bankCardNumber == client.bankCardNumber;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bankCardNumber, credit, contract);
+        return Objects.hash(bankCardNumber);
     }
 
     @Override
     public String toString() {
         return "Client{" +
                 "bankCardNumber=" + bankCardNumber +
-                ", credit=" + credit +
-                ", contract='" + contract + '\'' +
                 ", name='" + name + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 '}';
     }
+
 }

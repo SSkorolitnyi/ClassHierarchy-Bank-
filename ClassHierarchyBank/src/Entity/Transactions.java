@@ -1,13 +1,18 @@
 package Entity;
 
-import java.util.Objects;
+import Interfaces.ITransactions;
 
-public class Transactions {
+import java.util.Objects;
+import java.util.Scanner;
+
+public class Transactions implements ITransactions {
     private Client fromClient;
     private Client toClient;
+
+
     double countOfMoney;
 
-    Transactions(Client fromClient, Client toClient, double countOfMoney) {
+    public Transactions(Client fromClient, Client toClient, double countOfMoney) {
         this.fromClient = fromClient;
         this.toClient = toClient;
         this.countOfMoney = countOfMoney;
@@ -57,5 +62,19 @@ public class Transactions {
                 ", toClient=" + toClient.getName() +
                 ", countOfMoney=" + countOfMoney +
                 '}';
+    }
+
+    @Override
+    public void checkBalance() {
+        if (fromClient.getBalance() < countOfMoney) {
+            System.out.println("Not Enough Money !");
+        }else{
+
+            double FromClient = fromClient.getBalance();
+            double ToClient = toClient.getBalance();
+            FromClient = FromClient - countOfMoney;
+            ToClient = ToClient + countOfMoney;
+            System.out.println(FromClient + " - " + ToClient);
+        }
     }
 }
