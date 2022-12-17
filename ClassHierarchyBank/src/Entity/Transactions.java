@@ -1,11 +1,13 @@
 package Entity;
 
+import Exceptions.TransactionException;
 import Interfaces.ITransactions;
 
 import java.util.Objects;
-import java.util.Scanner;
 
+import org.apache.log4j.Logger;
 public class Transactions implements ITransactions {
+    private static Logger logger = Logger.getLogger(Transactions.class);
     private Client fromClient;
     private Client toClient;
 
@@ -65,16 +67,22 @@ public class Transactions implements ITransactions {
     }
 
     @Override
-    public void checkBalance() {
-        if (fromClient.getBalance() < countOfMoney) {
-            System.out.println("Not Enough Money !");
-        }else{
+    public void checkBalance() throws TransactionException {
+            if (fromClient.getBalance() < countOfMoney) {
+                try {
+                    throw new TransactionException("Not Enough Money !");
+                } catch (TransactionException e){
+                    e.printStackTrace();
+                    logger.error(e.getMessage());
+                }
+                logger.info("Not Enough Money !");
+            }else{
 
-            double FromClient = fromClient.getBalance();
-            double ToClient = toClient.getBalance();
-            FromClient = FromClient - countOfMoney;
-            ToClient = ToClient + countOfMoney;
-            System.out.println(FromClient + " - " + ToClient);
-        }
+                double FromClient = fromClient.getBalance();
+                double ToClient = toClient.getBalance();
+                FromClient = FromClient - countOfMoney;
+                ToClient = ToClient + countOfMoney;
+                logger.info(FromClient + " - " + ToClient);
+            }
     }
 }
